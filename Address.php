@@ -9,7 +9,6 @@ use Magento\Backend\Model\Session\Quote;
 use Magento\Framework\App\ObjectManager;
 use Magento\Framework\Data\Form\Element\AbstractElement;
 use Magento\Framework\Pricing\PriceCurrencyInterface;
-use Magento\Sales\Api\OrderRepositoryInterface;
 
 /**
  * Order create address form
@@ -89,11 +88,6 @@ class Address extends \Magento\Sales\Block\Adminhtml\Order\Create\Form\AbstractF
     private $backendQuoteSession;
 
     /**
-     * @var \Magento\Sales\Api\OrderRepositoryInterface
-     */
-    private $orderRepository;
-
-    /**
      * Constructor
      *
      * @param \Magento\Backend\Block\Template\Context $context
@@ -112,7 +106,6 @@ class Address extends \Magento\Sales\Block\Adminhtml\Order\Create\Form\AbstractF
      * @param \Magento\Framework\Api\FilterBuilder $filterBuilder
      * @param \Magento\Customer\Model\Address\Mapper $addressMapper
      * @param array $data
-     * @param \Magento\Sales\Api\OrderRepositoryInterface $orderRepository
      *
      * @SuppressWarnings(PHPMD.ExcessiveParameterList)
      */
@@ -132,8 +125,7 @@ class Address extends \Magento\Sales\Block\Adminhtml\Order\Create\Form\AbstractF
         \Magento\Framework\Api\SearchCriteriaBuilder $criteriaBuilder,
         \Magento\Framework\Api\FilterBuilder $filterBuilder,
         \Magento\Customer\Model\Address\Mapper $addressMapper,
-        array $data = [],
-        OrderRepositoryInterface $orderRepository = null
+        array $data = []
     ) {
         $this->options = $options;
         $this->directoryHelper = $directoryHelper;
@@ -145,7 +137,6 @@ class Address extends \Magento\Sales\Block\Adminhtml\Order\Create\Form\AbstractF
         $this->filterBuilder = $filterBuilder;
         $this->addressMapper = $addressMapper;
         $this->backendQuoteSession = $sessionQuote;
-        $this->orderRepository = $orderRepository ?: ObjectManager::getInstance()->get(OrderRepositoryInterface::class);;
         parent::__construct(
             $context,
             $sessionQuote,
@@ -227,9 +218,8 @@ class Address extends \Magento\Sales\Block\Adminhtml\Order\Create\Form\AbstractF
      */
     protected function _prepareForm()
     {
-        $formValues = $this->getFormValues();
-        $storeId = $this->orderRepository
-            ->get($formValues['parent_id'])
+        $storeId = $this->getCreateOrderModel()
+            ->getSession()
             ->getStoreId();
         $this->_storeManager->setCurrentStore($storeId);
 
