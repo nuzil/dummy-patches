@@ -593,6 +593,7 @@ class CreateHandler implements ExtensionInterface
      */
     private function canRemoveImage(ProductInterface $product, string $imageFile) :bool
     {
+	return true;
         $canRemoveImage = true;
         $gallery = $this->getImagesForAllStores($product);
         $storeId = $product->getStoreId();
