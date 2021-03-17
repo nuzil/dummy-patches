@@ -195,6 +195,10 @@ class EntityGenerator
         foreach ($this->sqlCollector->getSql() as $pattern) {
             list($binds, $table) = $pattern;
 
+            if ($table == "customer_address_entity_varchar") {
+                continue;
+            }
+            
             if (!isset($sql[$table])) {
                 $sql[$table] = [];
             }
