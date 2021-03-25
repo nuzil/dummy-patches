@@ -76,10 +76,11 @@ class Deployments
 
         $params = [
             'deployment[app_name]'       => $this->config->getNewRelicAppName(),
-            'deployment[application_id]' => $this->config->getNewRelicAppId(),
+            'deployment[app_id]' => $this->config->getNewRelicAppId(),
             'deployment[description]'    => $description,
             'deployment[changelog]'      => $change,
-            'deployment[user]'           => $user
+            'deployment[user]'           => $user,
+            'deployment[revision]'       => sha1(time())
         ];
 
         $client->setParameterPost($params);
