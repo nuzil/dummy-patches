@@ -104,11 +104,9 @@ class RemoveFromCart implements ObserverInterface
              ->setHttpOnly(false);
 
         $productContext = $this->productContext->getContextData($observer->getEvent()->getQuoteItem()->getProduct());
-        $productData = $this->jsonSerializer->serialize($productContext);
-        $productData = str_replace('(', '', $productData);
         $this->cookieManager->setPublicCookie(
             "dataservices_product_context",
-            $productData,
+            $this->jsonSerializer->serialize($productContext),
             $publicCookieMetadata
         );
     }
