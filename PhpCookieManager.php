@@ -217,6 +217,15 @@ class PhpCookieManager implements CookieManagerInterface
         }
 
         if ($sizeOfCookie > static::MAX_COOKIE_SIZE) {
+
+            $this->logger->warning(
+                new Phrase('Cookie Size Error'),
+                array_merge($_COOKIE, ['user-agent' => $this->httpHeader->getHttpUserAgent()])
+            );
+            $this->logger->warning(
+                new Phrase('Cookie Size Error. Value: '.$value)
+            );
+
             throw new CookieSizeLimitReachedException(
                 new Phrase(
                     'Unable to send the cookie. Size of \'%name\' is %size bytes.',
