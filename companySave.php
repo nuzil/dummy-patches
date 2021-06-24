@@ -210,11 +210,7 @@ class Save extends \Magento\Backend\App\Action implements HttpPostActionInterfac
                 if (!is_array($fields)) {
                     continue;
                 }
-                foreach ($fields as $fieldKey => $fieldValue) {
-                    if (!isset($result[$fieldKey])) {
-                        $result[$fieldKey] = $fieldValue;
-                    }
-                }
+                $result = array_merge_recursive($result, $fields);
             }
         }
         $result = array_intersect_key($result, array_flip($allFormFields));
@@ -233,6 +229,7 @@ class Save extends \Magento\Backend\App\Action implements HttpPostActionInterfac
     private function saveCompany($id)
     {
         $data = $this->extractData();
+        $data = $this->castingCustomerData($data);
         $customerData = $this->extractCustomerData();
         $customer = $this->superUser->getUserForCompanyAdmin($customerData);
         if ($id !== null) {
@@ -244,6 +241,32 @@ class Save extends \Magento\Backend\App\Action implements HttpPostActionInterfac
         $company->setSuperUserId($customer->getId());
         $this->companyRepository->save($company);
         return $company;
+    }
+
+    /**
+     * Validate and casting of data to correct format
+     *
+     * @param array $data
+     * @return array
+     */
+    private function castingCustomerData(array $data): array {
+
+        $stringElements = [
+            CompanyInterface::TELEPHONE
+        ];
+        foreach ($data as $key=>$companyDataOption) {
+            if (in_array($key, $stringElements) && is_array($companyDataOption)) {
+                $finalValue = "";
+                foreach ($companyDataOption as $companyDataSingleOption) {
+                    if ($companyDataSingleOption) {
+                        $finalValue = $companyDataSingleOption;
+                        break;
+                    }
+                }
+                $data[$key] = $finalValue;
+            }
+        }
+        return $data;
     }
 
     /**
