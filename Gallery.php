@@ -353,8 +353,10 @@ class Gallery extends \Magento\Catalog\Block\Product\View\Gallery
             $this->toolObj->params->setValue('columns', $columns);
 
             $originalBlock = $this->getAnotherBlock();
-            $mtAsOriginal = $originalBlock->getData('mt_as_original');
-
+            $mtAsOriginal = false;
+            if ($originalBlock) {
+                $mtAsOriginal = $originalBlock->getData('mt_as_original');
+            }
             if (!$images->count()) {
                 if ($originalBlock) {
                     if ((strpos($originalBlock->getModuleName(), 'MagicToolbox_') === 0) && !$mtAsOriginal) {
