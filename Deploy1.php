@@ -36,13 +36,14 @@ class Deploy extends AbstractHelper
         \Amasty\Base\Model\FilesystemProvider $filesystemProvider
     ) {
         parent::__construct($context);
-        $this->filesystem = $filesystemProvider->get();
-        $this->rootWrite = $this->filesystem->getDirectoryWrite(DirectoryList::ROOT);
-        $this->rootRead = $this->filesystem->getDirectoryRead(DirectoryList::ROOT);
+        //$this->filesystem = $filesystemProvider->get();
+        //$this->rootWrite = $this->filesystem->getDirectoryWrite(DirectoryList::ROOT);
+        //$this->rootRead = $this->filesystem->getDirectoryRead(DirectoryList::ROOT);
     }
 
     public function deployFolder($folder)
     {
+        return true;
         $from = $this->rootRead->getRelativePath($folder);
         $this->moveFilesFromTo($from, '');
     }
