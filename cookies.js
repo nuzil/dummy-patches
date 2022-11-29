@@ -98,6 +98,7 @@ define([
         allowCookies: function () {
             this._super().done(function () {
                 this.closeCookieBar();
+                location.reload();
             }.bind(this));
         },
 
@@ -105,6 +106,7 @@ define([
             this._super();
 
             this.closeCookieBar();
+            location.reload();
         },
 
         closeCookieBar: function () {
