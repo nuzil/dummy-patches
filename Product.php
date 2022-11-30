@@ -907,7 +907,7 @@ class Product extends \Magento\ImportExport\Model\Export\Entity\AbstractEntity
             $entityCollection->setOrder('entity_id', 'asc');
             $entityCollection->setStoreId(Store::DEFAULT_STORE_ID);
             $this->_prepareEntityCollection($entityCollection);
-            $this->paginateCollection($page, $this->getItemsPerPage());
+            $this->paginateCollection($page, 10000);
             if ($entityCollection->count() == 0) {
                 break;
             }
