@@ -162,7 +162,7 @@ class Product extends \Magento\ImportExport\Model\Export\Entity\AbstractEntity
      *
      * @var int|null
      */
-    protected $_itemsPerPage = null;
+    protected $_itemsPerPage = 10000;
 
     /**
      * Header columns for export file
