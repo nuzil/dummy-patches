@@ -1401,7 +1401,11 @@ class Product extends \Magento\ImportExport\Model\Export\Entity\AbstractEntity
                 && $dataRow[$imageLabelCode]
                 && (!isset($dataRow[$imageAttributeCode]) || !$dataRow[$imageAttributeCode])
             ) {
-                $dataRow[$imageAttributeCode] = $rawData[$productId][Store::DEFAULT_STORE_ID][$imageAttributeCode];
+                if (isset($rawData[$productId]) && isset($rawData[$productId][Store::DEFAULT_STORE_ID][$imageAttributeCode])) {
+                    $dataRow[$imageAttributeCode] = $rawData[$productId][Store::DEFAULT_STORE_ID][$imageAttributeCode];
+                }else{
+                    $dataRow[$imageAttributeCode] = "";
+                }
             }
         }
     }
