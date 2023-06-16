@@ -212,6 +212,8 @@ class Invoice extends Sync
             }
             $data[$number]['Adjustment'] = floatval($collection->getData('shipping_amount'));
             $data[$number]['Discount'] = -floatval($collection->getData('discount_amount'));
+            $data[$number]['Currency'] = $collection->getData('base_currency_code');
+            
             $subDis = floatval($collection->getSubtotal() + $collection->getDiscountAmount());
             if ($subDis) {
                 $data[$number]['$line_tax'][0]['percentage'] = floatval($collection->getData('tax_amount') / $subDis * 100);
