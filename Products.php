@@ -131,7 +131,9 @@ class Products implements DataProcessorInterface
                 \sprintf('Product exporter: no product data found for ids %s in scopes %s', $productsIds, $scopes)
             );
         } else {
-            $this->processProducts($mappedProducts, $attributesData, $dataProcessorCallback);
+            if (!empty($mappedProducts)) {
+                $this->processProducts($mappedProducts, $attributesData, $dataProcessorCallback);
+            }
         }
     }
 
