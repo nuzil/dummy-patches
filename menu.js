@@ -97,7 +97,7 @@
                         }
 
                         // Open submenu on click
-                        if ( target.has( ".ui-menu" ).length ) {
+                        if (target.has('.ui-menu').length || target.parent().has('.ui-menu').length) {
                             this.expand( event );
                         } else if ( !this.element.is( ":focus" ) &&
                             active.closest( ".ui-menu" ).length ) {
