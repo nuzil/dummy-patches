@@ -72,7 +72,7 @@ class EnumFactory implements ConfigElementFactoryInterface
                 $item['name'],
                 $item['_value'],
                 isset($item['description']) ? $item['description'] : '',
-                isset($item['deprecationReason']) ? $item['deprecationReason'] : ''
+                isset($item['deprecationReason']) ? $item['deprecationReason'] : null
             );
         }
         return $this->create(
