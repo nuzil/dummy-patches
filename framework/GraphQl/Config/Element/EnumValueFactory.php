@@ -41,7 +41,7 @@ class EnumValueFactory
         string $name,
         string $value,
         string $description = '',
-        string $deprecationReason = ''
+        ?string $deprecationReason = null
     ): EnumValue {
         return $this->objectManager->create(
             EnumValue::class,
