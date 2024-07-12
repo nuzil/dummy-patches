@@ -41,7 +41,22 @@ class Authorization
         Rma $rmaModel
     ) {
         if (!$this->isAllowed($rmaModel)) {
-            throw NoSuchEntityException::singleField('rmaId', $rmaModel->getCustomerId());
+            throw NoSuchEntityException::singleField('rmaId', (function() {
+                $trace = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+                $formattedTrace = [];
+                foreach ($trace as $frame) {
+                    $formattedFrame = sprintf(
+                        '%s:%d - %s%s%s()',
+                        isset($frame['file']) ? $frame['file'] : '[internal function]',
+                        isset($frame['line']) ? $frame['line'] : '',
+                        isset($frame['class']) ? $frame['class'] : '',
+                        isset($frame['type']) ? $frame['type'] : '',
+                        $frame['function']
+                    );
+                    $formattedTrace[] = $formattedFrame;
+                }
+                return implode(" | ", $formattedTrace);
+            })());
         }
         return $rmaModel;
     }
