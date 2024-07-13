@@ -166,6 +166,7 @@ class RmaRepository implements RmaRepositoryInterface
         } catch (\Exception $e) {
             throw new CouldNotSaveException(__('Could not save the RMA entity. %1', $e->getMessage()), $e);
         }
+        sleep(1);
         return $this->get($rmaDataObject->getEntityId());
     }
 
