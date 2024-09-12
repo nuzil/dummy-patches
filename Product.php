@@ -1886,7 +1886,7 @@ class Product extends \Magento\Catalog\Model\AbstractModel implements
     {
         $data = parent::toArray($arrAttributes);
         $stock = $this->getStockItem();
-        if ($stock) {
+        if ($stock  && !is_array($stock)) {
             $data['stock_item'] = $stock->toArray();
         }
         unset($data['stock_item']['product']);
