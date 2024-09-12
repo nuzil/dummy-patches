@@ -21,7 +21,6 @@
                 <item name="moduleCommand" xsi:type="object">Swissup\Core\Console\Command\ModuleCommand</item>
                 <item name="moduleListCommand" xsi:type="object">Swissup\Core\Console\Command\ModuleListCommand</item>
                 <item name="themeCreateCommand" xsi:type="object">Swissup\Core\Console\Command\ThemeCreateCommand</item>
-                <item name="storeCreateCommand" xsi:type="object">Swissup\Core\Console\Command\StoreCreateCommand</item>
             </argument>
         </arguments>
     </type>
