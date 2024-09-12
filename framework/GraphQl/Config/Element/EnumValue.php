@@ -40,7 +40,7 @@ class EnumValue implements ConfigElementInterface
      * @param string $description
      * @param string $deprecationReason
      */
-    public function __construct(string $name, string $value, string $description = '', string $deprecationReason = '')
+    public function __construct(string $name, string $value, string $description = '', ?string $deprecationReason = null)
     {
         $this->name = $name;
         $this->value = $value;
@@ -81,9 +81,9 @@ class EnumValue implements ConfigElementInterface
     /**
      * Get the enum value's deprecatedReason.
      *
-     * @return string
+     * @return string|null
      */
-    public function getDeprecatedReason() : string
+    public function getDeprecatedReason() : ?string
     {
         return $this->deprecationReason;
     }
