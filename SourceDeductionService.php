@@ -85,7 +85,7 @@ class SourceDeductionService implements SourceDeductionServiceInterface
             }
 
             $sourceItem = $this->getSourceItemBySourceCodeAndSku->execute($sourceCode, $itemSku);
-            if (($sourceItem->getQuantity() - $qty) >= 0) {
+            if (($sourceItem->getQuantity() - $qty) >= 0 || $stockItemConfiguration->getBackorders()) {
                 $sourceItem->setQuantity($sourceItem->getQuantity() - $qty);
                 $stockStatus = $this->getSourceStockStatus(
                     $stockItemConfiguration,
