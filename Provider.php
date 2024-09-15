@@ -29,7 +29,7 @@ class Provider
     /**
      * @var int
      */
-    private $pageSize = 100;
+    private $pageSize = 200;
 
     /**
      * Initialize dependencies.
