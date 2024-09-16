@@ -154,6 +154,7 @@ class SalesOrder extends Sync
             $data[$number]['Sub_Total'] = $collection->getData('subtotal');
             $data[$number]['Discount'] = -floatval($collection->getData('discount_amount'));
             $data[$number]['Subject'] = $collection->getData('increment_id');
+            $data[$number]['Currency'] = $collection->getData('base_currency_code');
             $taxDetails = $this->orderTax->getOrderTaxDetails($collection->getId());
             $taxOrder = [];
             foreach ($taxDetails->getAppliedTaxes() as $tax) {
