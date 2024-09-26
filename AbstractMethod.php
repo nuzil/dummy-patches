@@ -437,6 +437,11 @@ abstract class AbstractMethod extends \Magento\Framework\Model\AbstractExtensibl
         for specific country, the flag will set up as 1
         */
         if ($this->getConfigData('allowspecific') == 1) {
+
+            file_put_contents("/app/7iyoiqopk5sz2_stg3/var/log/payment.txt", "Countries: ".json_encode($this->getConfigData('specificcountry'))."\n", FILE_APPEND);
+            file_put_contents("/app/7iyoiqopk5sz2_stg3/var/log/payment.txt", "Method: ".json_encode($this->getCode())."\n", FILE_APPEND);
+            file_put_contents("/app/7iyoiqopk5sz2_stg3/var/log/payment.txt", "========================== \n\n\n", FILE_APPEND);
+
             $availableCountries = explode(',', $this->getConfigData('specificcountry'));
             if (!in_array($country, $availableCountries)) {
                 return false;
