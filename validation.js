@@ -9,6 +9,7 @@ define([
     $.validator.addMethod(
         'validate-dob',
         function (value) {
+	    return true;
             if (value === '') {
                 return true;
             }
