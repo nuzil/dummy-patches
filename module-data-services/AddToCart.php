@@ -112,6 +112,8 @@ class AddToCart implements ObserverInterface
         $productContext = $this->productContext->getContextData($observer->getEvent()->getProduct());
         $productData = $this->jsonSerializer->serialize($productContext);
         $productData = str_replace(' ', '{space}', $productData);
+        $productData = str_replace('(', '', $productData);
+        $productData = str_replace(')', '', $productData);
         $this->cookieManager->setPublicCookie(
             "dataservices_product_context",
             $productData,
