@@ -97,7 +97,7 @@ class CheckSharedCatalogPermission
             $this->storeManager->getWebsite()->getId()
         );
         $companyId = $this->companyContext->getCompanyId();
-        if (!$isCompanyConfigEnabled || $companyId === null) {
+        if (!$isCompanyConfigEnabled || $companyId === null || $companyId === 0) {
             return [$productInfo, $requestInfo];
         }
 
