@@ -6,6 +6,7 @@
 
 namespace Firebear\ImportExport\Model\Import\Product\Type\Grouped;
 
+use Magento\CatalogImportExport\Model\Import\Product as ProductImport;
 use Magento\Framework\App\ResourceConnection;
 
 /**
@@ -42,7 +43,7 @@ class Links extends \Magento\GroupedImportExport\Model\Import\Product\Type\Group
     /**
      * @return string
      */
-    protected function getBehavior()
+    protected function getBehavior(ProductImport $productImport)
     {
         if ($this->behavior === null) {
             $this->behavior = $this->fireImportFactory->create()->getFireDataSourceModel()->getBehavior();
@@ -56,7 +57,7 @@ class Links extends \Magento\GroupedImportExport\Model\Import\Product\Type\Group
      *
      * @throws \Magento\Framework\Exception\LocalizedException
      */
-    protected function deleteOldLinks($productIds)
+    protected function deleteOldLinks($productIds, ProductImport $productImport)
     {
         $jobId = $this->fireImportFactory->create()->getFireDataSourceModel()->getJobId();
         $importJobData = $this->importJobRepository->getById($jobId);
