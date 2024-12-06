@@ -909,7 +909,7 @@ class ProductRepository implements \Magento\Catalog\Api\ProductRepositoryInterfa
             throw $e;
         } catch (\Exception $e) {
             throw new CouldNotSaveException(
-                __('The product was unable to be saved. Please try again.'),
+                __($e->getMessage()),
                 $e
             );
         }
