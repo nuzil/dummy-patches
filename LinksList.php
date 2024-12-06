@@ -64,7 +64,7 @@ class LinksList
         foreach ($selectionCollection as $selection) {
             $priceType = $product->getPriceType();
             $selectionPriceType = $priceType ? $selection->getSelectionPriceType() : null;
-            $selectionPriceValue = $selection->getSelectionPriceValue() < 0
+            $selectionPriceValue = $selection->getSelectionPriceValue() <= 0
                 ? $selection->getPrice()
                 : $selection->getSelectionPriceValue();
             $selectionPrice = $priceType ? $selectionPriceValue : $selection->getPrice();
