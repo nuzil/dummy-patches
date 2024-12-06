@@ -58,7 +58,7 @@ class Deployments
      *
      * @return bool|string
      */
-    public function setDeployment($description, $change = false, $user = false)
+    public function setDeployment($description, $change = false, $user = false, $revision = null)
     {
         $apiUrl = $this->config->getNewRelicApiUrl();
 
@@ -74,14 +74,20 @@ class Deployments
 
         $client->setHeaders(['x-api-key' => $this->config->getNewRelicApiKey()]);
 
+        if (!$revision) {
+            $revision = hash('sha256', time());
+        }
+
         $params = [
-            'deployment[app_name]'       => $this->config->getNewRelicAppName(),
-            'deployment[application_id]' => $this->config->getNewRelicAppId(),
-            'deployment[description]'    => $description,
-            'deployment[changelog]'      => $change,
-            'deployment[user]'           => $user
+            'deployment[app_name]' => $this->config->getNewRelicAppName(),
+            'deployment[app_id]' => $this->config->getNewRelicAppId(),
+            'deployment[description]' => $description,
+            'deployment[changelog]' => $change,
+            'deployment[user]' => $user,
+            'deployment[revision]' => $revision
         ];
 
+        $this->logger->warning(json_encode($params));
         $client->setParameterPost($params);
 
         try {
@@ -90,6 +96,9 @@ class Deployments
             $this->logger->critical($e);
             return false;
         }
+
+        $this->logger->warning(json_encode($response->getBody()));
+        $this->logger->warning(json_encode($response->getMessage()));
 
         if ($response->getStatus() < 200 || $response->getStatus() > 210) {
             $this->logger->warning('Deployment marker request did not send a 200 status code.');
